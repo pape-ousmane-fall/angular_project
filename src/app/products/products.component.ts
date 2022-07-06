@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageProduct, Product } from '../model/product.model';
+import { AuthentificationService } from '../services/authentification.service';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class ProductsComponent implements OnInit {
   currentAction:string="all";
 
   constructor(private productService: ProductService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public authenticateService:AuthentificationService
     ) { 
 
   }

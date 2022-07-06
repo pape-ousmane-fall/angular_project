@@ -72,7 +72,7 @@ return of({
 
   }
 
-  searchProducts( keyword: string,page: number,size: number):Observable<PageProduct>{
+searchProducts( keyword: string,page: number,size: number):Observable<PageProduct>{
     let result= this.products.filter(product => product.name.includes(keyword));
    
     let index =page*size;

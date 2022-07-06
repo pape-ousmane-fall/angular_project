@@ -5,7 +5,7 @@
                 {{errorMessage}}
             </div>
         </ng-template>
-        <div *ngIf="products ;else error" class="card">     
+        <div *ngIf="products ;else error" class="card">
         </div>
         <div class="card-header">Products List</div>
         <div class="card-body">
@@ -19,6 +19,7 @@
                     </button>
                 </div>
             </form>
+
             <table class="table">
                 <thead>
                     <tr>
@@ -26,7 +27,7 @@
                         <th>NAME</th>
                         <th>PRICE</th>
                     </tr>
-                    
+
                 </thead>
                 <tbody>
                     <tr *ngFor="let p of products">
@@ -34,31 +35,29 @@
                         <td>{{ p.name }}</td>
                         <td>{{ p.price }}</td>
                         <td>
-                            <i *ngIf="p.promotion==true"  class="bi bi-heart-fill text-success"></i>
+                            <i *ngIf="p.promotion==true" class="bi bi-heart-fill text-success"></i>
                         </td>
-                        <td>
+                        <td *ngIf="authenticateService.hasRole('ADMIN')">
                             <button (click)="handleSetPromotion(p)"
-                            [ngClass]="p.promotion==true?'btn-danger':'btn-success'"
-                             class="btn">
-                             <span *ngIf="p.promotion==true">Promo Enable</span>
-                             <span *ngIf="p.promotion==false">Promo On</span>
-                            
+                                [ngClass]="p.promotion==true?'btn-danger':'btn-success'" class="btn">
+                                <span *ngIf="p.promotion==true">Promo Enable</span>
+                                <span *ngIf="p.promotion==false">Promo On</span>
+
                             </button>
                         </td>
-                        <td>
-                            <button (click)="handleDeleteProduct(p)"
-                             class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                        <td *ngIf="authenticateService.hasRole('ADMIN')">
+                            <button (click)="handleDeleteProduct(p)" class="btn btn-danger"><i
+                                    class="bi bi-trash"></i></button>
                         </td>
 
                     </tr>
                 </tbody>
 
             </table>
-            <ul  class="nav nav-pills">
+            <ul class="nav nav-pills">
                 <li *ngFor="let item of [].constructor(this.totalPages); let i=index">
-                    <a  (click)="gotoPage(i)"
-                     [ngClass]="i==currentPage?'btn-info':'btn-outline-info'"
-                     class="btn  ms-1 mt-1">{{i}}</a>
+                    <a (click)="gotoPage(i)" [ngClass]="i==currentPage?'btn-info':'btn-outline-info'"
+                        class="btn  ms-1 mt-1">{{i}}</a>
                 </li>
             </ul>
 
