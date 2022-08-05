@@ -1,4 +1,12 @@
 <div class="container">
+  <nav *ngIf="authenticateService.hasRole('ADMIN')"
+  class="p-2 m-2 border border-info">
+    <button
+      
+      class="btn btn btn-outline-info" (click)="handleNewProduct()">
+      New Product
+    </button>
+  </nav>
     <div class="card">
         <ng-template #error>
             <div class="text-danger">
@@ -48,6 +56,10 @@
                         <td *ngIf="authenticateService.hasRole('ADMIN')">
                             <button (click)="handleDeleteProduct(p)" class="btn btn-danger"><i
                                     class="bi bi-trash"></i></button>
+                        </td>
+                        <td *ngIf="authenticateService.hasRole('ADMIN')">
+                            <button (click)="handleEditProduct(p)" class="btn btn-info"><i
+                                    class="bi bi-file"></i></button>
                         </td>
 
                     </tr>

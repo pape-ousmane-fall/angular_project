@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageProduct, Product } from '../model/product.model';
 import { AuthentificationService } from '../services/authentification.service';
 import { ProductService } from '../services/product.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-products',
@@ -22,8 +23,9 @@ export class ProductsComponent implements OnInit {
 
   constructor(private productService: ProductService,
     private fb: FormBuilder,
-    public authenticateService:AuthentificationService
-    ) { 
+    public authenticateService:AuthentificationService,
+              private  router:Router
+    ) {
 
   }
 
@@ -39,7 +41,7 @@ this.handlePageProduct()
     this.productService.getAllProducts().subscribe(
       {
         next:(data:Product[]) => {
-          this.products = data; 
+          this.products = data;
         },
         error:(err:any) => {
             this.errorMessage=err;
@@ -61,7 +63,7 @@ this.handlePageProduct()
     this.productService.getPageProducts(this.currentPage,this.pageSize).subscribe(
       {
         next:(data:PageProduct) => {
-          this.products = data.products; 
+          this.products = data.products;
           this.totalPages=data.totalPages;
         },
         error:(err:any) => {
@@ -95,8 +97,7 @@ this.handlePageProduct()
   }
   handleSearchProducts(){
     this.currentAction="search";
-    this.currentPage=0;
-    let keyword = this.searchFormGroup.value.keyword;
+      let keyword = this.searchFormGroup.value.keyword;
     this.productService.searchProducts(keyword,this.currentPage,this.pageSize).subscribe({
       next:(data:PageProduct) => {
          console.log({data})
@@ -106,4 +107,12 @@ this.handlePageProduct()
     })
   }
 
+  handleNewProduct() {
+  this.router.navigateByUrl("admin/newProduct");
+  }
+  handleEditProduct(product:Product){
+    console.log(product);
+    this.router.navigateByUrl("admin/editProduct/"+product.id);
+
+  }
 }
